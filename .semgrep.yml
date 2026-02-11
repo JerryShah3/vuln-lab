@@ -1,0 +1,60 @@
+- id: sql-injection-concat
+  pattern: cursor.execute("SELECT" + ...)
+  languages: [python]
+  severity: ERROR
+  message: "[HIGH] SQL Injection via string concatenation"
+  metadata:
+    custom-severity: "HIGH"
+    owasp: "A03:2021"
+
+- id: reflected-xss
+  pattern: return "<h1>" + $VAR + "</h1>"
+  languages: [python]
+  severity: WARNING
+  message: "[MEDIUM] Reflected XSS possible"
+
+- id: command-injection
+  pattern: os.popen($CMD)
+  languages: [python]
+  severity: ERROR
+  message: "[CRITICAL] Command Injection (RCE)"
+
+- id: ssrf-request
+  pattern: requests.get($URL)
+  languages: [python]
+  severity: ERROR
+  message: "[HIGH] Possible SSRF"
+
+- id: ssti-flask
+  pattern: render_template_string($TPL)
+  languages: [python]
+  severity: ERROR
+  message: "[HIGH] Server Side Template Injection"
+
+- id: xxe-lxml
+  pattern: etree.XMLParser(resolve_entities=True)
+  languages: [python]
+  severity: ERROR
+  message: "[CRITICAL] XXE - entity expansion enabled"
+
+- id: race-condition-global
+  pattern: balance -= $AMOUNT
+  languages: [python]
+  severity: WARNING
+  message: "[MEDIUM] Possible race condition on shared variable"
+
+- id: missing-auth
+  pattern: |
+    @app.route("/admin")
+    def admin(...):
+        ...
+  languages: [python]
+  severity: WARNING
+  message: "[HIGH] Admin endpoint without authentication"
+
+- id: permissive-cors
+  pattern: response.headers["Access-Control-Allow-Origin"] = "*"
+  languages: [python]
+  severity: WARNING
+  message: "[MEDIUM] Permissive CORS configuration"
+
