@@ -75,4 +75,4 @@ def cors(response):
 app.run(host="0.0.0.0", port=5000)
 
 
-#Flag = CTF{hEllO_WorLD}
+Flag = CTF{hEllO_WorLD}
