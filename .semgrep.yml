@@ -58,3 +58,7 @@
   severity: WARNING
   message: "[MEDIUM] Permissive CORS configuration"
 
+- id: github-token-leak
+  pattern-regex: CTF
+  message: "Potential GitHub token leaked"
+  severity: ERROR
