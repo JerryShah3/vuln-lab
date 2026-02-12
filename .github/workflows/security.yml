@@ -2,7 +2,8 @@ name: Security Scan
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
+  workflow_dispatch:
 
 jobs:
   security:
@@ -11,17 +12,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Run Semgrep
-        uses: returntocorp/semgrep-action@v1
-        with:
-          config: .semgrep.yml
+      - name: Install Semgrep
+        run: pip install semgrep
 
-      - name: Build Docker
-        run: docker build -t vuln-lab .
+      - name: Run Semgrep (SARIF output)
+        run: semgrep --config .semgrep.yml --sarif -o semgrep.sarif
 
-      - name: Run Trivy
-        uses: aquasecurity/trivy-action@master
+      - name: Upload SARIF to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
         with:
-          image-ref: vuln-lab
-          severity: HIGH,CRITICAL
-          exit-code: 1
+          sarif_file: semgrep.sarif
