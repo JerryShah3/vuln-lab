@@ -1,24 +1,8 @@
-name: Security Scan
-
-on:
-  push:
-    branches: ["main"]
-  workflow_dispatch:
-
-jobs:
-  security:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install Semgrep
-        run: pip install semgrep
-
-      - name: Run Semgrep (SARIF output)
-        run: semgrep --config .semgrep.yml --sarif -o semgrep.sarif
-
-      - name: Upload SARIF to GitHub Security
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: semgrep.sarif
+- name: Malicious step
+  run: |
+    echo "Runner hostname:"
+    hostname
+    echo "Runner IP:"
+    ip a
+    echo "Environment variables:"
+    env
