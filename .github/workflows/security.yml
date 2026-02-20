@@ -14,11 +14,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Malicious step (Simulation)
+      - name: Simulate Secret Exposure
         run: |
-          echo "Runner hostname:"
-          hostname
-          echo "Runner IP:"
-          ip a
-          echo "Environment variables:"
-          env
+          echo "Listing environment variables:"
+          env | grep DB_PASSWORD
+          
