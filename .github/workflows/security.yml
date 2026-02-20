@@ -16,6 +16,7 @@ jobs:
 
       - name: Simulate Secret Exposure
         run: |
-          echo "Listing environment variables:"
-          env | grep DB_PASSWORD
-          
+          echo "DB_PASSWORD is:"
+          echo "$DB_PASSWORD"
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
